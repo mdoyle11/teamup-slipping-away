@@ -51,13 +51,39 @@ class EmailClient:
     # 2. Join the parsed list back into a clean string for the email UI header
     msg["To"] = ", ".join(recipients)
 
-    df_html = df.to_html(index=False, border=0)
+    df_html = df.to_html(index=False, border=0, classes="styled-table")
 
     html_content = f"""
         <html>
-          <body style="font-family: Arial, sans-serif;">
-            <h2>Customers Slipping Away {today_str})</h2>
+          <head>
+            <style>
+              .styled-table {{
+                border-collapse: collapse;
+                width: 100%;
+                font-family: Arial, sans-serif;
+                font-size: 13px;
+                border: 1px solid #cccccc;
+              }}
+              .styled-table th, .styled-table td {{
+                padding: 10px 12px;
+                border: 1px solid #cccccc;
+                text-align: left; /* Forces all columns and headers to align left */
+              }}
+              .styled-table th {{
+                background-color: #f4f6f8;
+                color: #333333;
+                font-weight: bold;
+                text-align: left;
+              }}
+              .styled-table tr:nth-child(even) {{
+                background-color: #f9f9f9;
+              }}
+            </style>
+          </head>
+          <body style="font-family: Arial, sans-serif; color: #333333;">
+            <h2>Customers Slipping Away ({today_str})</h2>
             <p><strong>{len(df)} customers are slipping away.</strong></p>
+            <br>
             {df_html}
             <br>
           </body>

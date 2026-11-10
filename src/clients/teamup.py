@@ -15,7 +15,7 @@ class TeamUpClient:
     }
 
   def get_customers(self, params: dict = {
-    "columns": "id,first_name,last_name,email,phone_number,address,is_new,is_slipping_away,instructor,attendances_count,late_cancels_count,no_shows_count,latest_registration,next_registration,last_registration",
+    "columns": "id,first_name,last_name,email,phone_number,is_slipping_away,instructor,registrations_count,latest_registration,next_registration",
     "is_slipping_away": "true",
   }) -> pd.DataFrame:
     """Fetches and paginates through all attended customer counts from TeamUp API."""
@@ -54,7 +54,7 @@ class TeamUpClient:
           logger.info("Reached end of TeamUp pagination (no more rows).")
           break
 
-        records.append(rows)
+        records.extend(rows)
 
         next_url = data.get("next")
 

@@ -10,3 +10,8 @@ wheels/
 .venv
 
 .env
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform.lock.info
+.terraform/
